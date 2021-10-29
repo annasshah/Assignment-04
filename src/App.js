@@ -34,12 +34,13 @@ function App() {
   const [errorMsg, setErrorMsg] = useState(false)
   const [nameBox, setnameBox] = useState(true)
   const [questionsContainer, setQuestionsContainer] = useState(false)
+  const [activeConfetti, setactiveConfetti] = useState(true)
 
   const [resultSummary, setresultSummary] = useState(false)
-  const [grade, setgrade] = useState('')
-  const [percentage, setPercentage] = useState(0)
+  const [grade, setgrade] = useState()
   const [showAnswers, setShowAnswers] = useState(false)
-
+  
+  const [percentage, setPercentage] = useState()
 
   const [userAnswer, setUserAnswer] = useState()
   const [marks, setMarks] = useState(0)
@@ -81,34 +82,64 @@ function App() {
   let closeAnswers = () => {
     setShowAnswers(!showAnswers)
     setresultSummary(!resultSummary)
+    setactiveConfetti(false)
   }
 
 
   let nextQue = () => {
     if (queIndex === questions.length - 1) {
-      setPercentage(marks / questions.length * 100)
-      if (percentage <= 100 && percentage >= 90) {
+      questions[queIndex].userAnswer = userAnswer
+
+
+      if (userAnswer === questions[queIndex].answer) {
+        setMarks(marks + 1)
+        questions[queIndex].score = 1
+      }
+        setPercentage(marks / questions.length * 100)
+
+      if ((marks/questions.length * 100) <= 100 && (marks/questions.length * 100) >= 90) {
         setgrade('A+')
       }
-      else if (percentage < 90 && percentage >= 80) {
+      else if ((marks/questions.length * 100) < 90 && (marks/questions.length * 100) >= 80) {
         setgrade('A')
       }
-      else if (percentage < 80 && percentage >= 70) {
+      else if ((marks/questions.length * 100) < 80 && (marks/questions.length * 100) >= 70) {
         setgrade('B')
       }
-      else if (percentage < 70 && percentage >= 60) {
+      else if ((marks/questions.length * 100) < 70 && (marks/questions.length * 100) >= 60) {
         setgrade('C')
       }
-      else if (percentage < 60 && percentage >= 50) {
+      else if ((marks/questions.length * 100) < 60 && (marks/questions.length * 100) >= 50) {
         setgrade('D')
       }
-      else if (percentage < 40 && percentage >= 30) {
+      else if ((marks/questions.length * 100) < 40 && (marks/questions.length * 100) >= 30) {
         setgrade('E')
       }
       else {
         setgrade('F')
       }
 
+      // if ((marks / questions.length * 100) <= 100 && (marks / questions.length * 100) >= 90) {
+      //   setgrade('A+')
+      // }
+      // else if ((marks / questions.length * 100) < 90 && (marks / questions.length * 100) >= 80) {
+      //   setgrade('A')
+      // }
+      // else if ((marks / questions.length * 100) < 80 && (marks / questions.length * 100) >= 70) {
+      //   setgrade('B')
+      // }
+      // else if ((marks / questions.length * 100) < 70 && (marks / questions.length * 100) >= 60) {
+      //   setgrade('C')
+      // }
+      // else if ((marks / questions.length * 100) < 60 && (marks / questions.length * 100) >= 50) {
+      //   setgrade('D')
+      // }
+      // else if ((marks / questions.length * 100) < 40 && (marks / questions.length * 100) >= 30) {
+      //   setgrade('E')
+      // }
+      // else {
+      //   setgrade('F')
+      // }
 
 
       setQuestionsContainer(false)
@@ -297,7 +328,7 @@ function App() {
 
       {resultSummary && <Container maxWidth="lg" sx={{ my: 4, textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '90vh' }}>
 
-        <Box sx={{ with: '100wh' }}>
+        {activeConfetti && <Box sx={{ with: '100wh' }}>
           <Confetti
             width={'2000'}
             height={'2000'}
@@ -309,7 +340,7 @@ function App() {
 
           />
         </Box>
-
+        }
         <Box component="div"
           sx={{
             display: 'flex',
@@ -317,7 +348,7 @@ function App() {
             '& > :not(style)': {
               m: 1,
               width: 500,
-              height: 545,
+              height: 555,
             },
           }}>
           <Paper sx={{ margin: '0 auto' }} elevation={3} children={
@@ -360,7 +391,7 @@ function App() {
                 <ul className='list-unstyled text-center list-group'>
                   <li className="fs-6 my-2"><span>Total Marks</span> <span className="fw-bold">{questions.length} </span></li>
                   <li className="fs-6 my-2"><span>Obtained Marks: </span> <span className="fw-bold">{marks}</span></li>
-                  <li className="fs-6 my-2"><span>Correct Answers: </span> <span className="fw-bold">{questions.length - marks} </span></li>
+                  <li className="fs-6 my-2"><span>Correct Answers: </span> <span className="fw-bold">{marks} </span></li>
                   <li className="fs-6 my-2"><span>Status: </span> <span className="fw-bold">{(marks / questions.length * 100) >= 60 ? 'Pass' : 'Fail'}</span></li>
                 </ul>
 
@@ -406,7 +437,7 @@ function App() {
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '90%' }}>
                       <Typography variant="h6">Q{ind + 1}: {ques.question}</Typography>
 
-                      <Typography color={ques.score === 1 ? '#008000' : 'error'} sx={{fontSize:'18px'}} >{ques.score === 1 ? "Correct ✔" : 'Wrong ×'}
+                      <Typography color={ques.score === 1 ? '#008000' : 'error'} sx={{ fontSize: '18px' }} >{ques.score === 1 ? "Correct ✔" : 'Wrong ×'}
                       </Typography>
                     </Box>
 
@@ -414,17 +445,17 @@ function App() {
                       <ul className='px-0 mx-0 w-75'>{
                         ques.options.map((x, index) => {
                           if (x === ques.answer && ques.userAnswer === ques.answer) {
-                              return <li key={index} className='py-2 px-2 my-2 list-unstyled correctAns'>{x}</li>
+                            return <li key={index} className='py-2 px-2 my-2 list-unstyled correctAns'>{x}</li>
                           }
-                          else if (x === ques.userAnswer && ques.userAnswer !== ques.answer ) {
+                          else if (x === ques.userAnswer && ques.userAnswer !== ques.answer) {
                             return <li key={index} className='py-2 px-2 my-2 list-unstyled wrongAns'>{x}</li>
                           }
 
-                          else if (x === ques.answer && ques.userAnswer !== ques.answer ) {
+                          else if (x === ques.answer && ques.userAnswer !== ques.answer) {
                             return <li key={index} className='py-2 px-2 my-2 list-unstyled correctAns'>{x}</li>
                           }
 
-                          else{
+                          else {
                             return <li key={index} className='py-2 px-2 my-2 list-unstyled'>{x}</li>
                           }
 
