@@ -5,7 +5,6 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import 'bootstrap/dist/css/bootstrap.min.css';
 import questions from './data-files/questionsObj';
 import Confetti from 'react-confetti'
-import { height } from '@mui/system';
 
 
 
@@ -28,7 +27,6 @@ function App() {
       backgroundColor: theme.palette.mode === 'light' ? ' var(--main-color)' : '#308fe8',
     },
   }));
-
 
 
   const [firstName, setFirstName] = useState('')
@@ -400,35 +398,35 @@ function App() {
                 Answers
               </Typography>
 
-
-
-
-
               <Box sx={{ py: 3, px: 3, color: 'var(--main-color)', height: 380, overflowY: 'scroll', textAlign: 'left' }}>
 
 
                 {questions.map((ques, ind) => {
                   return <Box key={ind} sx={{ py: 2, fontSize: '20px' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '85%' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '90%' }}>
                       <Typography variant="h6">Q{ind + 1}: {ques.question}</Typography>
 
-                      <Typography color={ques.score === 1 ? "success" : 'error'} >{ques.score == '1' ? "Correct" : 'Wrong'}
+                      <Typography color={ques.score === 1 ? '#008000' : 'error'} sx={{fontSize:'18px'}} >{ques.score === 1 ? "Correct ✔" : 'Wrong ×'}
                       </Typography>
                     </Box>
 
                     <Box sx={{ py: 1, fontSize: '20px' }}>
                       <ul className='px-0 mx-0 w-75'>{
                         ques.options.map((x, index) => {
-                          if (x === ques.answer && userAnswer === x) {
-                            return <li key={index} className='py-2 px-2 my-2 list-unstyled correctAns'>{x}</li>
+                          if (x === ques.answer && ques.userAnswer === ques.answer) {
+                              return <li key={index} className='py-2 px-2 my-2 list-unstyled correctAns'>{x}</li>
                           }
-                          else if (x === ques.answer && ques.answer !== userAnswer) {
+                          else if (x === ques.userAnswer && ques.userAnswer !== ques.answer ) {
                             return <li key={index} className='py-2 px-2 my-2 list-unstyled wrongAns'>{x}</li>
                           }
 
-                          // else if (x !== ques.answer && userAnswer !== ques.answer) {
-                          //   return <li key={index} className='py-2 px-2 my-2 list-unstyled answers'>{x}</li>
-                          // }
+                          else if (x === ques.answer && ques.userAnswer !== ques.answer ) {
+                            return <li key={index} className='py-2 px-2 my-2 list-unstyled correctAns'>{x}</li>
+                          }
+
+                          else{
+                            return <li key={index} className='py-2 px-2 my-2 list-unstyled'>{x}</li>
+                          }
 
                         })}
 
@@ -451,23 +449,6 @@ function App() {
         </Box>
       </Container >
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </Box >
 
