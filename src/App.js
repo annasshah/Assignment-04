@@ -401,28 +401,34 @@ function App() {
               </Typography>
 
 
+
+
+
               <Box sx={{ py: 3, px: 3, color: 'var(--main-color)', height: 380, overflowY: 'scroll', textAlign: 'left' }}>
 
 
                 {questions.map((ques, ind) => {
                   return <Box key={ind} sx={{ py: 2, fontSize: '20px' }}>
-                    <Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '85%' }}>
                       <Typography variant="h6">Q{ind + 1}: {ques.question}</Typography>
+
+                      <Typography color={ques.score === 1 ? "success" : 'error'} >{ques.score == '1' ? "Correct" : 'Wrong'}
+                      </Typography>
                     </Box>
 
                     <Box sx={{ py: 1, fontSize: '20px' }}>
                       <ul className='px-0 mx-0 w-75'>{
                         ques.options.map((x, index) => {
-                          if (x === ques.answer && userAnswer === ques.answer) {
+                          if (x === ques.answer && userAnswer === x) {
                             return <li key={index} className='py-2 px-2 my-2 list-unstyled correctAns'>{x}</li>
                           }
-                          else if (x === ques.answer && userAnswer !== ques.answer) {
+                          else if (x === ques.answer && ques.answer !== userAnswer) {
                             return <li key={index} className='py-2 px-2 my-2 list-unstyled wrongAns'>{x}</li>
                           }
 
-                          else if (x !== ques.answer && userAnswer !== ques.answer) {
-                            return <li key={index} className='py-2 px-2 my-2 list-unstyled answers'>{x}</li>
-                          }
+                          // else if (x !== ques.answer && userAnswer !== ques.answer) {
+                          //   return <li key={index} className='py-2 px-2 my-2 list-unstyled answers'>{x}</li>
+                          // }
 
                         })}
 

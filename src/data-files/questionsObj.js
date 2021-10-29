@@ -14,8 +14,7 @@ let questions = [
             "Ghana"
         ],
         "question": "Windhoek is the capital of__________?",
-        "userAnswer":'nil',
-        "score":0
+
     },
     {
         "answer": "Euro",
@@ -26,8 +25,6 @@ let questions = [
             "Escudo"
         ],
         "question": "The currency of portugal is__________?",
-        "userAnswer":'nil',
-        "score":0
     },
     {
         "answer": "Almaty",
@@ -38,8 +35,7 @@ let questions = [
             "Tashkent"
         ],
         "question": "Which of the following city served as capital of Kazakhstan till 1997?",
-        "userAnswer":'nil',
-        "score":0
+
     },
     {
         "answer": "North Atlantic Ocean",
@@ -50,8 +46,7 @@ let questions = [
             "Arabian Sea"
         ],
         "question": "Bermuda Triangle is located in__________?",
-        "userAnswer":'nil',
-        "score":0
+
     },
     {
         "answer": "Ramon Magsaysay Award",
@@ -62,8 +57,7 @@ let questions = [
             "None of them"
         ],
         "question": "Which among the following is known as Asia a version of “Noble prize”?",
-        "userAnswer":'nil',
-        "score":0
+
     },
     {
         "answer": "Geneva",
@@ -74,8 +68,7 @@ let questions = [
             "Paris"
         ],
         "question": "The headquarter of EFTA is in_____________?",
-        "userAnswer":'nil',
-        "score":0
+
     },
     {
         "answer": "China",
@@ -86,8 +79,7 @@ let questions = [
             "None of These"
         ],
         "question": "Which country Built A 250-Acre Solar Farm Shaped Like A Giant Panda:",
-        "userAnswer":'nil',
-        "score":0
+
     },
     {
         "answer": "White Bellbird",
@@ -98,8 +90,7 @@ let questions = [
             "None of these"
         ],
         "question": "________ is the World’s Loudest Bird",
-        "userAnswer":'nil',
-        "score":0
+
 
     },
     {
@@ -111,8 +102,6 @@ let questions = [
             "Feb 01"
         ],
         "question": "_______ is known as leap day or leap year day",
-        "userAnswer":'nil',
-        "score":0
 
     },
     {
@@ -124,8 +113,7 @@ let questions = [
             "None of These"
         ],
         "question": "Where is the World’s longest sea bridge ?",
-        "userAnswer":'nil',
-        "score":0
+        
 
     }
 ]
